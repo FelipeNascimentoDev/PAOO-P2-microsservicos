@@ -28,13 +28,13 @@ const funcoes = {
 //POST /lembretes/1/observacoes
 app.post('/lembretes/:id/observacoes', async (req, res) => {
   const idObs = uuidv4()
-  const { texto } = req.body
+  const { texto, status } = req.body
   const observacoesDoLembrete = baseObservacoes[req.params.id] || []
   const observacao = {
     id: idObs, 
     texto: texto,
     lembreteId: req.params.id,
-    status: 'aguardando'
+    status: status.includes('importante') ? 'importante' : 'aguardando'
   }
   observacoesDoLembrete.push(observacao)
   baseObservacoes[req.params.id] = observacoesDoLembrete
